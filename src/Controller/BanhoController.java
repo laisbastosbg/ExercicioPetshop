@@ -23,15 +23,21 @@ public class BanhoController {
     public MaquinaDeLavagem maquina;
 
     public void botarPetNaMaquina(Pet pet) {
-        if (this.maquina.getPet() == null) {
-            if(pet != null && !pet.getNome().isEmpty()) {
-                this.maquina.setPet(pet);
-            } else {
-                System.out.println("Erro. Tente novamente.");
-            }
+        if (this.maquina.getPrecisaLimpeza()) {
+            System.out.println("Operação cancelada. Realize limpeza da máquina.");
         } else {
-            System.out.println("Apenas um pet por vez");
+           if (this.maquina.getPet() == null) {
+                if(pet != null && !pet.getNome().isEmpty()) {
+                    this.maquina.setPet(pet);
+                    System.out.printf("Pet %s adicionado à máquina. Aguardando banho.\n", pet.getNome());
+                } else {
+                    System.out.println("Erro. Tente novamente.");
+                }
+            } else {
+                System.out.println("Apenas um pet por vez");
+            }
         }
+        
     }
 
     public void tirarPetDaMaquina() {
@@ -55,6 +61,14 @@ public class BanhoController {
         } else {
             System.out.println("Não há pets na máquina");
         }
+    }
+
+    public void verificarNivelDeAgua() {
+        System.out.printf("Nível de água: %d\n", this.maquina.getQuantidadeAguaEmLitros());
+    }
+
+    public void verificarNivelDeShampoo() {
+        System.out.printf("Nível de shampoo: %d\n", this.maquina.getQuantidadeShampooEmLitros());
     }
 
     public void abastecerTanqueDeAgua () {
@@ -81,9 +95,7 @@ public class BanhoController {
 
     public void darBanho() {
 
-        if (this.maquina.getPrecisaLimpeza()) {
-            System.out.println("Operação cancelada. Realize limpeza da máquina.");
-        } else {
+        if (this.maquina.getPet() != null) {
             if (this.maquina.getQuantidadeAguaEmLitros() < CONSUMO_DE_AGUA_BANHO) {
                 System.out.println("Água insuficiente, abasteça o tanque.");
             } else if (this.maquina.getQuantidadeShampooEmLitros() < CONSUMO_DE_SHAMPOO_BANHO) {
@@ -99,6 +111,8 @@ public class BanhoController {
                 System.out.printf("Tanque de água: %d\n", this.maquina.getQuantidadeAguaEmLitros());
                 System.out.printf("Tanque de Shampoo: %d\n", this.maquina.getQuantidadeShampooEmLitros());
             }
+        } else {
+            System.out.println("Operação cancelada. Coloque o pet na máquina.");
         }
     }
 
