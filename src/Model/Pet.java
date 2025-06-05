@@ -6,7 +6,7 @@ public class Pet {
 
     private String nomeTutor;
 
-    private Boolean estaLimpo;
+    private boolean estaLimpo;
 
     public Pet(String nome, String nomeTutor) {
         this.nome = nome;
@@ -30,11 +30,11 @@ public class Pet {
         this.nomeTutor = nomeTutor;
     }
 
-    public Boolean getEstaLimpo() {
+    public boolean getEstaLimpo() {
         return estaLimpo;
     }
 
-    public void setEstaLimpo(Boolean estaLimpo) {
+    public void setEstaLimpo(boolean estaLimpo) {
         this.estaLimpo = estaLimpo;
     }
 }

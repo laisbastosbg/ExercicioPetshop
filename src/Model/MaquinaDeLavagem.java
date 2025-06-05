@@ -2,14 +2,13 @@ package Model;
 
 public class MaquinaDeLavagem {
 
-
     private int quantidadeAguaEmLitros;
 
     private int quantidadeShampooEmLitros;
 
     private Pet pet;
 
-    private Boolean precisaLimpeza;
+    private boolean precisaLimpeza;
 
     public MaquinaDeLavagem() {
         this.quantidadeAguaEmLitros = 0;
@@ -42,11 +41,11 @@ public class MaquinaDeLavagem {
         this.pet = pet;
     }
 
-    public Boolean getPrecisaLimpeza() {
+    public boolean getPrecisaLimpeza() {
         return precisaLimpeza;
     }
 
-    public void setPrecisaLimpeza(Boolean precisaLimpeza) {
+    public void setPrecisaLimpeza(boolean precisaLimpeza) {
         this.precisaLimpeza = precisaLimpeza;
     }
 }

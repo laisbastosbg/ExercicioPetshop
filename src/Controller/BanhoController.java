@@ -23,21 +23,27 @@ public class BanhoController {
     public MaquinaDeLavagem maquina = new MaquinaDeLavagem();
 
     public void botarPetNaMaquina(Pet pet) {
+        if (this.maquina.getPet() != null) {
+            System.out.println("Apenas um pet por vez");
+            return;
+        }
+
         if (this.maquina.getPrecisaLimpeza()) {
             System.out.println("Operação cancelada. Realize limpeza da máquina.");
-        } else {
-           if (this.maquina.getPet() == null) {
-                if(pet != null && !pet.getNome().isEmpty()) {
-                    this.maquina.setPet(pet);
-                    System.out.printf("Pet %s adicionado à máquina. Aguardando banho.\n", pet.getNome());
-                } else {
-                    System.out.println("Erro. Tente novamente.");
-                }
-            } else {
-                System.out.println("Apenas um pet por vez");
-            }
+            return;
         }
-        
+
+        if (this.maquina.getPet() != null && this.maquina.getPet().getEstaLimpo()) {
+            System.out.println("Operação cancelada. Pet já está limpo.");
+            return;
+        }
+
+        if(pet != null && !pet.getNome().isEmpty()) {
+            this.maquina.setPet(pet);
+            System.out.printf("Pet %s adicionado à máquina. Aguardando banho.\n", pet.getNome());
+        } else {
+            System.out.println("Erro. Tente novamente.");
+        }
     }
 
     public void tirarPetDaMaquina() {
@@ -45,7 +51,8 @@ public class BanhoController {
             if (!this.maquina.getPet().getEstaLimpo()) {
                 this.maquina.setPet(null);
                 this.maquina.setPrecisaLimpeza(true);
-                System.out.println("Pet retirado. Realizar limpeza da máquina.");
+                System.out.printf("Pet %s retirado.%n", this.maquina.getPet().getNome());
+                System.out.println("Realizar limpeza da máquina.");
             } else {
                 this.maquina.setPet(null);
                 System.out.println("Pet retirado.");
@@ -100,8 +107,6 @@ public class BanhoController {
                 System.out.println("Água insuficiente, abasteça o tanque.");
             } else if (this.maquina.getQuantidadeShampooEmLitros() < CONSUMO_DE_SHAMPOO_BANHO) {
                 System.out.println("Shampoo insuficiente, abasteça o tanque.");
-            } else if (this.maquina.getPet() == null) {
-                System.out.println("Coloque o pet na máquina.");
             } else {
                 this.maquina.setQuantidadeAguaEmLitros(this.maquina.getQuantidadeAguaEmLitros() - CONSUMO_DE_AGUA_BANHO);
                 this.maquina.setQuantidadeShampooEmLitros(this.maquina.getQuantidadeShampooEmLitros() - CONSUMO_DE_SHAMPOO_BANHO);
@@ -124,6 +129,7 @@ public class BanhoController {
         }else {
             this.maquina.setQuantidadeAguaEmLitros(this.maquina.getQuantidadeAguaEmLitros() - CONSUMO_DE_AGUA_LIMPEZA);
             this.maquina.setQuantidadeShampooEmLitros(this.maquina.getQuantidadeShampooEmLitros() - CONSUMO_DE_SHAMPOO_LIMPEZA);
+            this.maquina.setPrecisaLimpeza(false);
             System.out.println("Limpeza completa.");
             System.out.printf("Tanque de água: %d\n", this.maquina.getQuantidadeAguaEmLitros());
             System.out.printf("Tanque de Shampoo: %d\n", this.maquina.getQuantidadeShampooEmLitros());

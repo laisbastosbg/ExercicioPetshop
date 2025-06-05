@@ -7,7 +7,7 @@ import Model.Pet;
 
 public class Menu {
 
-    public static Menu shared = new Menu();
+    private static Menu shared = new Menu();
 
     private Scanner scanner = new Scanner(System.in);
 
@@ -17,6 +17,10 @@ public class Menu {
 
     private Menu() {
 
+    }
+
+    public static Menu getInstance() {
+        return shared;
     }
 
     public void displayOptions() {
@@ -43,6 +47,7 @@ public class Menu {
 
     public void getInput() {
         int option = scanner.nextInt();
+        scanner.nextLine(); 
 
         switch (option) {
             case 1:
@@ -65,8 +70,10 @@ public class Menu {
                 break;
             case 7:
                 System.out.printf("Nome do pet: ");
-                String nomePet = scanner.next();
-                Pet pet = new Pet(nomePet, "Tutor do " + nomePet);
+                String nomePet = scanner.nextLine();
+                System.out.printf("Nome do tutor: ");
+                String nomeTutor = scanner.nextLine();
+                Pet pet = new Pet(nomePet, nomeTutor);
                 banhoController.botarPetNaMaquina(pet);
                 break;
             case 8:
