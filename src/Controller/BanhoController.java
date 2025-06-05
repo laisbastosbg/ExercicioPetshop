@@ -20,7 +20,7 @@ public class BanhoController {
 
     public static final int CONSUMO_DE_SHAMPOO_LIMPEZA= 1;
 
-    public MaquinaDeLavagem maquina;
+    public MaquinaDeLavagem maquina = new MaquinaDeLavagem();
 
     public void botarPetNaMaquina(Pet pet) {
         if (this.maquina.getPrecisaLimpeza()) {

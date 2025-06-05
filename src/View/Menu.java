@@ -3,6 +3,7 @@ package View;
 import java.util.Scanner;
 
 import Controller.BanhoController;
+import Model.Pet;
 
 public class Menu {
 
@@ -12,28 +13,32 @@ public class Menu {
 
     private BanhoController banhoController = new BanhoController();
 
+    private Boolean isRunning = true;
+
     private Menu() {
 
     }
 
     public void displayOptions() {
-        System.out.println("========================================");
-        System.out.println("\tBem-vindo ao Pet Wash!");
-        System.out.println("Selecione uma opção do menu abaixo:");
-        System.out.println("----------------------------------------");
-        System.out.println("[1] - Dar banho no pet");
-        System.out.println("[2] - Abastecer com água");
-        System.out.println("[3] - Abastecer com shampoo");
-        System.out.println("[4] - Verificar nível de água");
-        System.out.println("[5] - Verificar nível de shampoo");
-        System.out.println("[6] - Verificar se tem pet no banho");
-        System.out.println("[7] - Colocar pet na máquina");
-        System.out.println("[8] - Retirar pet da máquina");
-        System.out.println("[9] - Limpar máquina");
-        System.out.println("[0] - Sair");
-        System.out.println("========================================");
-        System.out.println("Digite sua opção: ");
-        this.getInput();
+        while (isRunning) {
+            System.out.println("========================================");
+            System.out.println("\tBem-vindo ao Pet Wash!");
+            System.out.println("Selecione uma opção do menu abaixo:");
+            System.out.println("----------------------------------------");
+            System.out.println("[1] - Dar banho no pet");
+            System.out.println("[2] - Abastecer com água");
+            System.out.println("[3] - Abastecer com shampoo");
+            System.out.println("[4] - Verificar nível de água");
+            System.out.println("[5] - Verificar nível de shampoo");
+            System.out.println("[6] - Verificar se tem pet no banho");
+            System.out.println("[7] - Colocar pet na máquina");
+            System.out.println("[8] - Retirar pet da máquina");
+            System.out.println("[9] - Limpar máquina");
+            System.out.println("[0] - Sair");
+            System.out.println("========================================");
+            System.out.print("Digite sua opção: ");
+            this.getInput();
+        }
     }
 
     public void getInput() {
@@ -59,16 +64,21 @@ public class Menu {
                 banhoController.verificarSeHaPetNaMaquina();
                 break;
             case 7:
-                banhoController.botarPetNaMaquina();
+                System.out.printf("Nome do pet: ");
+                String nomePet = scanner.next();
+                Pet pet = new Pet(nomePet, "Tutor do " + nomePet);
+                banhoController.botarPetNaMaquina(pet);
                 break;
             case 8:
-                System.out.println("Retirar pet da máquina");
+                banhoController.tirarPetDaMaquina();
                 break;
             case 9:
-                System.out.println("Limpar máquina");
+                banhoController.limpar();
                 break;
             case 0:
-                System.out.println("Sair do programa");
+                System.out.println("Obrigado por usar o Pet Wash!");
+                isRunning = false;
+                scanner.close();
                 break;
             default:
                 System.out.println("Opção inválida, tente novamente.");
