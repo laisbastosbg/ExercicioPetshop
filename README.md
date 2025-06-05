@@ -32,11 +32,14 @@ Este projeto é uma simulação de um sistema de gerenciamento de banhos em pets
 
 ```plaintext
 src/
- └── petshop/
-      ├── model/       → Representação de Pet e Máquina de Lavagem
-      ├── controller/  → Regras de negócio para banho e manutenção
-      ├── view/        → Interface de interação com o usuário (console)
-      └── Main.java    → Ponto de entrada da aplicação
+ ├── Model/       → Representação de Pet e Máquina de Lavagem 
+     ├── Pet.java 
+     └── MaquinaDeLavagem.java
+ ├── Controller/  → Regras de negócio para banho e manutenção
+     └── BanhoController.java
+ ├── View/        → Interface de interação com o usuário (console)
+     └── Menu.java
+ └── Main.java    → Ponto de entrada da aplicação
 ```
 
 ---
